@@ -1,39 +1,73 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
   "vcs": {
-    "enabled": true,
+    "enabled": false,
     "clientKind": "git",
-    "useIgnoreFile": true
+    "useIgnoreFile": false
   },
   "files": {
-    "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+    "ignoreUnknown": false,
+    "includes": [
+      "src/**/*",
+      ".vscode/**/*",
+      ".zed/**/*",
+      ".storybook/**/*",
+      "index.html",
+      "vite.config.ts",
+      "!src/routeTree.gen.ts",
+      "!src/styles.css",
+      "!node_modules/**/*"
+    ]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2
   },
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              "react",
+              ":BLANK_LINE:",
+              ":NODE:",
+              ":BLANK_LINE:",
+              ":PACKAGE:",
+              ":BLANK_LINE:",
+              "@/services/**",
+              ":BLANK_LINE:",
+              "@/entities/**",
+              ":BLANK_LINE:",
+              "@/features/**",
+              ":BLANK_LINE:",
+              "@/shared/**",
+              ":BLANK_LINE:",
+              ":ALIAS:",
+              ":BLANK_LINE:",
+              ":PATH:"
+            ],
+            "identifierOrder": "lexicographic"
+          }
+        }
+      }
     }
   },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
-    },
-    "domains": {
-      "next": "recommended",
-      "react": "recommended"
+      "recommended": true,
+      "complexity": {
+        "useArrowFunction": "off"
+      }
     }
   },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "all"
     }
   }
 }
