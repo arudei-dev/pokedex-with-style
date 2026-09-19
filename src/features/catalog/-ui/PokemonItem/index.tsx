@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import type { Pokemon } from "pokenode-ts";
 
+import { useMyTeamModel } from "@/shared/entities/my-team";
 import { f } from "@/shared/lib/corefunc/fn";
 import {
   capitalizeEveryFirstLetter,
@@ -25,11 +26,11 @@ interface Props {
 export default function PokemonItem(props: Props) {
   const { pokemonName } = props;
 
+  const { myTeamList, addToTeam } = useMyTeamModel();
+
   const [response, setResponse] = useState<Response<Pokemon>>({
     $status: "loading",
   });
-
-  console.log({ response });
 
   useEffect(() => {
     f(async () => {
@@ -45,6 +46,8 @@ export default function PokemonItem(props: Props) {
   if (response.$status !== "success") {
     return <div className="w-full h-100 bg-gray-300 rounded-lg" />;
   }
+
+  const isInMyTeaam = myTeamList.includes(response.name);
 
   return (
     <Card className="flex flex-col items-center gap-0 pb-4">
@@ -68,9 +71,19 @@ export default function PokemonItem(props: Props) {
         </div>
       </CardContent>
       <CardFooter className="flex-col w-full pt-4">
-        <Button type="submit" className="w-full">
-          Add to Team
-        </Button>
+        {isInMyTeaam ? (
+          <Button disabled type="submit" className="w-full">
+            In Team
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            className="w-full"
+            onClick={() => addToTeam(response.name)}
+          >
+            Add to Team
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
