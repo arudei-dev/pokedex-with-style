@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from "react";
 
-import { f } from '@/shared/lib/browser';
-import { useIsomorphicEffect } from '@/shared/lib/react-hooks/use-isomorphic-effect';
-import { cn } from '@/shared/lib/tailwind/cn';
+import { f } from "@/shared/lib/corefunc/fn";
+import { useIsomorphicEffect } from "@/shared/lib/react-hooks/use-isomorphic-effect";
+import { cn } from "@/shared/lib/tailwind/cn";
 
-import type { Props } from './-types';
+import type { Props } from "./-types";
 
 export default function Collapsible(props: Props) {
   const {
@@ -76,15 +76,15 @@ export default function Collapsible(props: Props) {
   if (!shouldRender) return null;
 
   const cnWrapper = cn(
-    'overflow-hidden',
-    'transition-[height] ease-in-out',
+    "overflow-hidden",
+    "transition-[height] ease-in-out",
     classNameWrapper,
   );
 
   const cnChildrenWrapper = cn(
     enableAnimation && [
-      'transition-opacity ease-in-out',
-      isAnimating ? 'opacity-100' : 'opacity-0',
+      "transition-opacity ease-in-out",
+      isAnimating ? "opacity-100" : "opacity-0",
     ],
     classNameChildrenWrapper,
   );
@@ -92,9 +92,9 @@ export default function Collapsible(props: Props) {
   const computedHeight = f(() => {
     if (!enableAnimation || childrenHeight == null) return undefined;
 
-    if (!isAnimating) return '0px';
+    if (!isAnimating) return "0px";
 
-    return typeof childrenHeight === 'number'
+    return typeof childrenHeight === "number"
       ? `${childrenHeight}px`
       : childrenHeight;
   });
